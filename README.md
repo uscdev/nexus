@@ -17,3 +17,7 @@ Prerequisites:
 
 Note: Typically you can use the standard sonatype/nexus3. This version gives you ssl, which allows you to
 deploy and pull from the registry if the nginx reverse proxy is down.
+
+To build:
+docker build -t uscits/nexus .
+docker push uscits/nexus
