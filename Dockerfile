@@ -32,14 +32,18 @@ RUN sed -i \
 etc/jetty/jetty-https.xml
 # Disallow insecure TLS protocols
 RUN sed -i \
-'s/<Set name="ExcludeCipherSuites">/<Set name=\"ExcludeProtocols\">\n\
-<Array type=\"java.lang.String\">\n\
-<Item>SSLv3<\/Item>\n\
-<Item>TLSv1<\/Item>\n\
-<Item>TLSv1.1<\/Item>\n\
-<Item>TLSv1.2<\/Item>\n\
-<\/Array>\n<\/Set>\n\
-<Set name="ExcludeCipherSuites">/' \
+'s/<Set name="ExcludeCipherSuites">/\
+<Set name=\"ExcludeProtocols\">\n\
+\t\t<Array type=\"java.lang.String\">\n\
+\t\t\t<Item>SSL<\/Item>\n\
+\t\t\t<Item>SSLv2<\/Item>\n\
+\t\t\t<Item>SSLv2Hello<\/Item>\n\
+\t\t\t<Item>SSLv3<\/Item>\n\
+\t\t\t<Item>TLSv1<\/Item>\n\
+\t\t\t<Item>TLSv1.1<\/Item>\n\
+\t\t<Item>TLSv1.2<\/Item>\n\
+\t<\/Array>\n<\/Set>\n\
+\t<Set name="ExcludeCipherSuites">/' \
 etc/jetty/jetty-https.xml
 USER nexus
 
