@@ -30,6 +30,17 @@ etc/jetty/jetty-https.xml
 RUN sed -i \
 's/<Property name=\"ssl.etc\"\/>\/keystore.jks/\/run\/secrets\/keystore.jks/' \
 etc/jetty/jetty-https.xml
+# Disallow insecure TLS protocols
+RUN sed -i \
+'s/<Set name="ExcludeCipherSuites">/<Set name=\"ExcludeProtocols\">\n\
+<Array type=\"java.lang.String\">\n\
+<Item>SSLv3<\/Item>\n\
+<Item>TLSv1<\/Item>\n\
+<Item>TLSv1.1<\/Item>\n\
+<Item>TLSv1.2<\/Item>\n\
+<\/Array>\n<\/Set>\n\
+<Set name="ExcludeCipherSuites">/' \
+etc/jetty/jetty-https.xml
 USER nexus
 
 # For systemd usage this changes to /usr/sbin/init
