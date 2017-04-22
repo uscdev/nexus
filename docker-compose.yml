@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  nexus:
+    image: uscits/nexus
+    ports:
+      - 8081:8081
+      - 8443:8443
+    networks:
+      web-bus:
+    volumes:
+      - ${USC_LOCAL_DIR}/nexus:/nexus-data
+    secrets:
+      - keystore.jks
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.hostname==${NODE01}
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-DJETTY_PASSWORD=${USC_NEXUS_KEYSTORE_PASSWORD}
+networks:
+  web-bus:
+    external:
+      name: web-bus
+secrets:
+  keystore.jks:
+    external: true
