@@ -3,16 +3,22 @@ services:
   nexus:
     image: uscdev/nexus
     ports:
-      - 8081:8081
       - 8443:8443
     networks:
-      web-bus:
+      - proxy
     volumes:
       - ${USC_LOCAL_DIR}/nexus:/nexus-data
     secrets:
       - keystore.jks
     deploy:
       replicas: 1
+      labels:
+        - com.df.notify=true
+        - com.df.distribute=true
+        - com.df.serviceDomain=nexus.docker.usc.edu
+        - com.df.httpsOnly=true
+        - com.df.port=8081
+        - com.df.xForwardedProto=true
       update_config:
         parallelism: 1
         delay: 10s
@@ -24,9 +30,9 @@ services:
     environment:
       - INSTALL4J_ADD_VM_PARAMS=-DJETTY_PASSWORD=${USC_NEXUS_KEYSTORE_PASSWORD}
 networks:
-  web-bus:
+  proxy:
     external:
-      name: web-bus
+      name: proxy
 secrets:
   keystore.jks:
     external: true
