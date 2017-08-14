@@ -7,7 +7,7 @@ services:
     networks:
       - proxy
     volumes:
-      - ${USC_LOCAL_DIR}/nexus:/nexus-data
+      - nexus-data:/nexus-data
     secrets:
       - keystore.jks
     deploy:
@@ -15,7 +15,7 @@ services:
       labels:
         - com.df.notify=true
         - com.df.distribute=true
-        - com.df.serviceDomain=nexus.docker.usc.edu
+        - com.df.serviceDomain=nexus.swarm.usc.edu
         - com.df.httpsOnly=true
         - com.df.port=8081
         - com.df.xForwardedProto=true
@@ -24,9 +24,6 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
-      placement:
-        constraints:
-          - node.hostname==${NODE01}
     environment:
       - INSTALL4J_ADD_VM_PARAMS=-DJETTY_PASSWORD=${USC_NEXUS_KEYSTORE_PASSWORD}
 networks:
@@ -35,4 +32,7 @@ networks:
       name: proxy
 secrets:
   keystore.jks:
+    external: true
+volumes:
+  nexus-data:
     external: true

@@ -23,9 +23,9 @@ etc/nexus-default.properties
 # RUN sed -i \
 # 's/Password\">OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v<\/Set>/Password\"><SystemProperty name=\"JETTY_PASSWORD\" default=\"OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v\"\/><\/Set>/' \
 # etc/jetty/jetty-https.xml
-# Actual password should be passed in as follows: 
+# Actual password should be passed in as follows:
 RUN sed -i \
-'s/Password\">OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v<\/Set>/Password\"><SystemProperty name=\"JETTY_PASSWORD\" default=\"OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v\"\/><\/Set>/' \
+'s/Password\">password<\/Set>/Password\"><SystemProperty name=\"JETTY_PASSWORD\" default=\"OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v\"\/><\/Set>/' \
 etc/jetty/jetty-https.xml
 RUN sed -i \
 's/<Property name=\"ssl.etc\"\/>\/keystore.jks/\/run\/secrets\/keystore.jks/' \
