@@ -1,4 +1,4 @@
-FROM sonatype/nexus3
+FROM sonatype/nexus3:3.5.0
 MAINTAINER Don Corley [dcorley@usc.edu]
 LABEL name="Nexus repo with ssl for USC" \
     vendor="USC" \
