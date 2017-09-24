@@ -1,15 +1,15 @@
 version: '3.1'
 services:
   nexus:
-    image: uscdev/nexus
-    ports:
-      - 8443:8443
+    image: sonatype/nexus3
+#    ports:
+#      - 8443:8443
     networks:
       - proxy
     volumes:
       - ${USC_LOCAL_DIR}/nexus:/nexus-data
-    secrets:
-      - keystore.jks
+#    secrets:
+#      - keystore.jks
     deploy:
       replicas: 1
       labels:
@@ -27,12 +27,12 @@ services:
       placement:
         constraints:
           - node.hostname==${NODE01}
-    environment:
-      - INSTALL4J_ADD_VM_PARAMS=-DJETTY_PASSWORD=${USC_NEXUS_KEYSTORE_PASSWORD}
+#    environment:
+#      - INSTALL4J_ADD_VM_PARAMS=-DJETTY_PASSWORD=${USC_NEXUS_KEYSTORE_PASSWORD}
 networks:
   proxy:
     external:
       name: proxy
-secrets:
-  keystore.jks:
-    external: true
+# secrets:
+#  keystore.jks:
+#    external: true
