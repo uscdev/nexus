@@ -15,10 +15,17 @@ services:
       labels:
         - com.df.notify=true
         - com.df.distribute=true
-        - com.df.serviceDomain=nexus.swarm.usc.edu
-        - com.df.httpsOnly=true
-        - com.df.port=8081
+        - com.df.serviceDomain.1=nexus.swarm.usc.edu
+        - com.df.port.1=8081
+        - com.df.httpsOnly.1=true
+        - com.df.xForwardedProto.1=true
         - com.df.xForwardedProto=true
+        - com.df.serviceDomain.2=registry.swarm.usc.edu
+        - com.df.port.2=8445
+        - com.df.httpsOnly.2=true
+        - com.df.serviceDomain.3=dtr.swarm.usc.edu
+        - com.df.port.3=8442
+        - com.df.httpsOnly.3=true
       update_config:
         parallelism: 1
         delay: 10s
